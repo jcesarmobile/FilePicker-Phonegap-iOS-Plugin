@@ -23,8 +23,12 @@
         UTIsArray = UTIs;
     } else {
         supported = NO;
-        self.pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"not supported"];
-        [self.commandDelegate sendPluginResult:self.pluginResult callbackId:self.command.callbackId];
+        [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"not supported"] callbackId:self.command.callbackId];
+    }
+    
+    if (!NSClassFromString(@"UIDocumentPickerViewController")) {
+        supported = NO;
+        [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"your device can't show the file picker"] callbackId:self.command.callbackId];
     }
 
     if (supported) {
