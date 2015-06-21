@@ -2,6 +2,8 @@ FilePicker Phonegap iOS Plugin
 ================================
 
 This plugin makes possible to pick files from iCloud or other document providers
+The file is copied to a temp folder, if you want to keep it, copy the file to a persistent location
+It's only available for iOS 8
 
 
 Installation:
