@@ -33,7 +33,11 @@ var utis = ["public.data", "public.audio"];
 window.FilePicker.pickFile(successCallback,errorCallback,utis);
 ```
 
-See available UTIs https://developer.apple.com/library/ios/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html
+successCallback will bring the file url as string
+errorCallback will bring an error message as string
+
+
+See all the available UTIs https://developer.apple.com/library/ios/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html
 
 Prerequisites
 =============
