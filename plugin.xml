@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="com.jcesarmobile.filepicker"
-        version="1.1.1">
+        version="1.1.0">
 
   <name>File Picker</name>
   <author>jcesarmobile</author>
@@ -29,20 +29,6 @@
 
     <header-file src="src/ios/FilePicker.h"/>
     <source-file src="src/ios/FilePicker.m"/>
-
-    <config-file target="*-Info.plist" parent="NSUbiquitousContainers">
-      <dict>
-        <key>iCloud.com.telerik.plugindemo.filepickerplugin</key>
-        <dict>
-          <key>NSUbiquitousContainerIsDocumentScopePublic</key>
-          <true/>
-          <key>NSUbiquitousContainerSupportedFolderLevels</key>
-          <string>Any</string>
-          <key>NSUbiquitousContainerName</key>
-          <string>filepickerplugin</string>
-        </dict>
-      </dict>
-    </config-file>
 
     <hook type="after_plugin_install" src="src/ios/hooks/prerequisites.js"/>
     <hook type="after_plugin_install" src="src/ios/hooks/install_entitlements.js"/>
