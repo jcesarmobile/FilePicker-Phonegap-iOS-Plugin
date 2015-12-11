@@ -13,6 +13,7 @@
 @property (strong, nonatomic) CDVPluginResult * pluginResult;
 @property (strong, nonatomic) CDVInvokedUrlCommand * command;
 
+- (void)isAvailable:(CDVInvokedUrlCommand*)command;
 - (void)pickFile:(CDVInvokedUrlCommand*)command;
 
 
