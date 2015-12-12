@@ -42,8 +42,6 @@ var xcode = require('xcode'),
     if (fs.existsSync(destFile)) {
       console.error("File exists, not doing anything: " + destFile);
     } else {
-      console.error("Will add iCloud entitlements to project '" + projName + "'");
-
       var sourceFile = path.join(context.opts.plugin.pluginInfo.dir, 'src/ios/resources/iCloud.entitlements');
       fs.readFile(sourceFile, 'utf8', function (err, data) {
         fs.writeFileSync(destFile, data);
@@ -65,13 +63,12 @@ var xcode = require('xcode'),
           var config = configGroups[key];
           if (config.buildSettings !== undefined) {
             config.buildSettings.CODE_SIGN_ENTITLEMENTS = '"' + projName + '/Resources/' + projName + '.entitlements"';
-            console.error("Adding iCloud entitlements to project '" + projName + "'");
           }
         }
 
         // write the updated project file
         fs.writeFileSync(projectPath, pbxProject.writeSync());
-        console.error("OK, added iCloud entitlements to project '" + projName + "'");
+        console.error("Added iCloud entitlements to project '" + projName + "'");
 
         deferral.resolve();
       });
