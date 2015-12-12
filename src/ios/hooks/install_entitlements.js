@@ -44,6 +44,8 @@ var xcode = require('xcode'),
     } else {
       var sourceFile = path.join(context.opts.plugin.pluginInfo.dir, 'src/ios/resources/iCloud.entitlements');
       fs.readFile(sourceFile, 'utf8', function (err, data) {
+        var resourcesFolderPath = path.join(iosFolder, projName, 'Resources');
+        fs.existsSync(resourcesFolderPath) || fs.mkdirSync(resourcesFolderPath);
         fs.writeFileSync(destFile, data);
 
         var projectPath = path.join(projFolder, 'project.pbxproj');
