@@ -9,8 +9,13 @@
 
 @implementation FilePicker
 
+- (void)isAvailable:(CDVInvokedUrlCommand*)command {
+    BOOL supported = NSClassFromString(@"UIDocumentPickerViewController");
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:supported] callbackId:command.callbackId];
+}
+
 - (void)pickFile:(CDVInvokedUrlCommand*)command {
-    
+
     self.command = command;
     id UTIs = [command.arguments objectAtIndex:0];
     BOOL supported = YES;
