@@ -20,6 +20,14 @@
     id UTIs = [command.arguments objectAtIndex:0];
     BOOL supported = YES;
     NSArray * UTIsArray = nil;
+    NSArray *frameValues = [command.arguments objectAtIndex:1];
+    CGRect frame = CGRectZero;
+    if (frameValues.count == 4) {
+        frame.origin.x = [frameValues[0] integerValue];
+        frame.origin.y = [frameValues[1] integerValue];
+        frame.size.width = [frameValues[2] integerValue];
+        frame.size.height = [frameValues[3] integerValue];
+    }
     if ([UTIs isEqual:[NSNull null]]) {
         UTIsArray =  @[@"public.data"];
     } else if ([UTIs isKindOfClass:[NSString class]]){
@@ -39,7 +47,7 @@
     if (supported) {
         self.pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
         [self.pluginResult setKeepCallbackAsBool:YES];
-        [self displayDocumentPicker:UTIsArray];
+        [self displayDocumentPicker:UTIsArray withSenderRect:frame];
     }
     
 }
@@ -77,11 +85,15 @@
     
 }
 
-- (void)displayDocumentPicker:(NSArray *)UTIs {
+- (void)displayDocumentPicker:(NSArray *)UTIs withSenderRect:(CGRect)senderFrame{
     
     UIDocumentMenuViewController *importMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:UTIs inMode:UIDocumentPickerModeImport];
     importMenu.delegate = self;
     importMenu.popoverPresentationController.sourceView = self.viewController.view;
+    if (!CGRectEqualToRect(senderFrame, CGRectZero)) {
+        importMenu.popoverPresentationController.sourceRect = senderFrame;
+    }
+    importMenu.popoverPresentationController.permittedArrowDirections = 4;
     [self.viewController presentViewController:importMenu animated:YES completion:nil];
     
 }
