@@ -20,25 +20,33 @@
     id UTIs = [command.arguments objectAtIndex:0];
     BOOL supported = YES;
     NSArray * UTIsArray = nil;
-    NSArray *frameValues = [command.arguments objectAtIndex:1];
     CGRect frame = CGRectZero;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        
-        if (frameValues.count == 4) {
-            frame.origin.x   = [frameValues[0] integerValue];
-            frame.origin.y   = [frameValues[1] integerValue];
-            frame.size.width = [frameValues[2] integerValue];
-            frame.size.height= [frameValues[3] integerValue];
-        }
-        else{
+
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if(command.arguments.count > 1) {
+            NSArray *frameValues = [command.arguments objectAtIndex:1];
+            frameValues = [frameValues isEqual:[NSNull null]]?nil:frameValues;
+            if (frameValues.count == 4 ) {
+                frame.origin.x   = [frameValues[0] integerValue];
+                frame.origin.y   = [frameValues[1] integerValue];
+                frame.size.width = [frameValues[2] integerValue];
+                frame.size.height= [frameValues[3] integerValue];
+            } else {
+                // default values for iPad
+                frame.origin.x = 150;
+                frame.origin.y = 350;
+                frame.size.width = 55;
+                frame.size.height = 20;
+            }
+        } else {
             // default values for iPad
             frame.origin.x = 150;
             frame.origin.y = 350;
             frame.size.width = 55;
             frame.size.height = 20;
         }
-       
     }
+
     if ([UTIs isEqual:[NSNull null]]) {
         UTIsArray =  @[@"public.data"];
     } else if ([UTIs isKindOfClass:[NSString class]]){
