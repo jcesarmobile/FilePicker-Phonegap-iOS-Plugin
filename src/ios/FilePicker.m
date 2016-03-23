@@ -21,6 +21,11 @@
     BOOL supported = YES;
     NSArray * UTIsArray = nil;
     CGRect frame = CGRectZero;
+    //default values
+    NSInteger x = 280;
+    NSInteger y = 360;
+    NSInteger width = 55;
+    NSInteger height = 20;
 
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         if(command.arguments.count > 1) {
@@ -33,17 +38,17 @@
                 frame.size.height= [frameValues[3] integerValue];
             } else {
                 // default values for iPad
-                frame.origin.x = 150;
-                frame.origin.y = 350;
-                frame.size.width = 55;
-                frame.size.height = 20;
+                frame.origin.x = x;
+                frame.origin.y = y;
+                frame.size.width = width;
+                frame.size.height = height;
             }
         } else {
             // default values for iPad
-            frame.origin.x = 150;
-            frame.origin.y = 350;
-            frame.size.width = 55;
-            frame.size.height = 20;
+            frame.origin.x = x;
+            frame.origin.y = y;
+            frame.size.width = width;
+            frame.size.height = height;
         }
     }
 
