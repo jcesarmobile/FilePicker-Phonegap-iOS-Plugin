@@ -21,11 +21,6 @@
     BOOL supported = YES;
     NSArray * UTIsArray = nil;
     CGRect frame = CGRectZero;
-    //default values
-    NSInteger x = 280;
-    NSInteger y = 360;
-    NSInteger width = 55;
-    NSInteger height = 20;
 
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         if(command.arguments.count > 1) {
@@ -36,19 +31,7 @@
                 frame.origin.y   = [frameValues[1] integerValue];
                 frame.size.width = [frameValues[2] integerValue];
                 frame.size.height= [frameValues[3] integerValue];
-            } else {
-                // default values for iPad
-                frame.origin.x = x;
-                frame.origin.y = y;
-                frame.size.width = width;
-                frame.size.height = height;
             }
-        } else {
-            // default values for iPad
-            frame.origin.x = x;
-            frame.origin.y = y;
-            frame.size.width = width;
-            frame.size.height = height;
         }
     }
 
@@ -117,7 +100,6 @@
     if (!CGRectEqualToRect(senderFrame, CGRectZero)) {
         importMenu.popoverPresentationController.sourceRect = senderFrame;
     }
-    importMenu.popoverPresentationController.permittedArrowDirections = 4;
     [self.viewController presentViewController:importMenu animated:YES completion:nil];
     
 }
