@@ -24,13 +24,13 @@
 
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         if(command.arguments.count > 1) {
-            NSArray *frameValues = [command.arguments objectAtIndex:1];
+            NSDictionary * frameValues = [command.arguments objectAtIndex:1];
             frameValues = [frameValues isEqual:[NSNull null]]?nil:frameValues;
-            if (frameValues.count == 4 ) {
-                frame.origin.x   = [frameValues[0] integerValue];
-                frame.origin.y   = [frameValues[1] integerValue];
-                frame.size.width = [frameValues[2] integerValue];
-                frame.size.height= [frameValues[3] integerValue];
+            if (frameValues) {
+                frame.origin.x   = [[frameValues valueForKey:@"x"] integerValue];
+                frame.origin.y   = [[frameValues valueForKey:@"y"] integerValue];
+                frame.size.width = [[frameValues valueForKey:@"width"] integerValue];
+                frame.size.height= [[frameValues valueForKey:@"height"] integerValue];
             }
         }
     }

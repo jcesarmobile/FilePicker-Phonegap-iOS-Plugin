@@ -8,8 +8,8 @@
             cordova.exec(success, null, "FilePicker", "isAvailable", []);
         },
   
-        pickFile: function(success, fail,utis, options) {
-            cordova.exec(success, fail, "FilePicker", "pickFile", [utis, options]);
+        pickFile: function(success, fail,utis, position) {
+            cordova.exec(success, fail, "FilePicker", "pickFile", [utis, position]);
         }
 
     };
