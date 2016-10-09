@@ -1,11 +1,11 @@
 // using error to see if this shows up in AB
 console.error("Running hook to add iCloud entitlements");
 
-var xcode = require('xcode'),
-    fs = require('fs'),
+var fs = require('fs'),
     path = require('path');
 
-  module.exports = function (context) {
+module.exports = function (context) {
+  var xcode = context.requireCordovaModule('xcode');
   var Q = context.requireCordovaModule('q');
   var deferral = new Q.defer();
 

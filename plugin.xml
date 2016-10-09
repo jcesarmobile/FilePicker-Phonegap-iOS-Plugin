@@ -30,7 +30,6 @@
     <header-file src="src/ios/FilePicker.h"/>
     <source-file src="src/ios/FilePicker.m"/>
 
-    <hook type="after_plugin_install" src="src/ios/hooks/prerequisites.js"/>
     <hook type="after_plugin_install" src="src/ios/hooks/install_entitlements.js"/>
   </platform>
 </plugin>
