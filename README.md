@@ -18,7 +18,7 @@ Step 2: Create the iCloud Container
 ![](img/icloud-container.png)
 
 Step 3: Configure the App ID to use the iCloud Container clicking "Edit" button
-![](edit-icloud.png)
+![](img/edit-icloud.png)
 
 Now you have to recreate your provisioning profile with iCloud enabled.
 
