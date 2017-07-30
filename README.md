@@ -31,7 +31,7 @@ You can also open the Xcode project on platforms/iOs folder clicking the .xcodep
 Installation:
 ============
 
-cordova plugin add https://github.com/jcesarmobile/FilePicker-Phonegap-iOS-Plugin.git
+`cordova plugin add cordova-plugin-filepicker`
 
 
 Usage:
@@ -56,7 +56,7 @@ If you don't pass any params, public.data UTI will be used
 
 ```
 FilePicker.pickFile(successCallback,errorCallback);
-var successCallback = function(path) {
+function successCallback(path) {
   alert("You picked this file: " + path);
 }
 ```
