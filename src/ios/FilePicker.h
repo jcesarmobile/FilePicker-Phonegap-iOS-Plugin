@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <Cordova/CDVPlugin.h>
 
-@interface FilePicker : CDVPlugin <UIDocumentMenuDelegate,UIDocumentPickerDelegate>
+@interface FilePicker : CDVPlugin <UIDocumentPickerDelegate>
 
 @property (strong, nonatomic) CDVPluginResult * pluginResult;
 @property (strong, nonatomic) CDVInvokedUrlCommand * command;
