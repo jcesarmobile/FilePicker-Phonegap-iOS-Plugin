@@ -92,16 +92,22 @@
     
 }
 
-- (void)displayDocumentPicker:(NSArray *)UTIs withSenderRect:(CGRect)senderFrame{
+#pragma mark - Internal
+- (void)displayDocumentPicker:(NSArray *)UTIs withSenderRect:(CGRect)senderFrame {
     
-    UIDocumentMenuViewController *importMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:UTIs inMode:UIDocumentPickerModeImport];
-    importMenu.delegate = self;
-    importMenu.popoverPresentationController.sourceView = self.viewController.view;
-    if (!CGRectEqualToRect(senderFrame, CGRectZero)) {
-        importMenu.popoverPresentationController.sourceRect = senderFrame;
+    if (@available(iOS 11.0, *)) {
+        UIDocumentPickerViewController *picker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:UTIs inMode:UIDocumentPickerModeImport];
+        picker.delegate = self;
+        [self.viewController presentViewController:picker animated:YES completion:nil];
+    } else {
+        UIDocumentMenuViewController *importMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:UTIs inMode:UIDocumentPickerModeImport];
+        importMenu.delegate = self;
+        importMenu.popoverPresentationController.sourceView = self.viewController.view;
+        if (!CGRectEqualToRect(senderFrame, CGRectZero)) {
+            importMenu.popoverPresentationController.sourceRect = senderFrame;
+        }
+        [self.viewController presentViewController:importMenu animated:YES completion:nil];
     }
-    [self.viewController presentViewController:importMenu animated:YES completion:nil];
-    
 }
 
 @end
