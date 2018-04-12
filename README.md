@@ -1,4 +1,4 @@
-FilePicker Phonegap iOS Plugin
+FilePicker PhoneGap iOS Plugin
 ================================
 
 This plugin makes possible to pick files from iCloud or other document providers using a native Document Picker
@@ -72,20 +72,8 @@ var utis = ["public.data", "public.audio"];
 FilePicker.pickFile(successCallback,errorCallback,utis);
 ```
 
-Set the position of the rectangle where the file picker should show up.
-```
-var utis = ["public.data", "public.audio"];
-var position = {};
-position.x = 100;
-position.y = 100;
-position.width = 10;
-position.height = 10;
-FilePicker.pickFile(successCallback,errorCallback,utis,position);
-```
-
-successCallback will bring the file url as string
-errorCallback will bring an error message as string
-
+`successCallback` will return the file url as string.  
+`errorCallback` will return an error message as string.
 
 See all the available UTIs https://developer.apple.com/library/ios/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html
 
