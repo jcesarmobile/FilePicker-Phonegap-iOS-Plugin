@@ -9,13 +9,14 @@
 
 @implementation FilePicker
 
-- (void)isAvailable:(CDVInvokedUrlCommand*)command {
-    BOOL supported = NSClassFromString(@"UIDocumentPickerViewController");
+- (void)isAvailable:(CDVInvokedUrlCommand*)command
+{
+    BOOL supported = [UIDocumentPickerViewController class] != nil;
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:supported] callbackId:command.callbackId];
 }
 
-- (void)pickFile:(CDVInvokedUrlCommand*)command {
-
+- (void)pickFile:(CDVInvokedUrlCommand*)command
+{
     self.command = command;
     id UTIs = [command.arguments objectAtIndex:0];
     BOOL supported = YES;
@@ -46,7 +47,7 @@
         [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"not supported"] callbackId:self.command.callbackId];
     }
     
-    if (!NSClassFromString(@"UIDocumentPickerViewController")) {
+    if (![UIDocumentPickerViewController class]) {
         supported = NO;
         [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"your device can't show the file picker"] callbackId:self.command.callbackId];
     }
@@ -56,24 +57,22 @@
         [self.pluginResult setKeepCallbackAsBool:YES];
         [self displayDocumentPicker:UTIsArray withSenderRect:frame];
     }
-    
 }
 
 #pragma mark - UIDocumentMenuDelegate
--(void)documentMenu:(UIDocumentMenuViewController *)documentMenu didPickDocumentPicker:(UIDocumentPickerViewController *)documentPicker {
-    
+-(void)documentMenu:(UIDocumentMenuViewController *)documentMenu didPickDocumentPicker:(UIDocumentPickerViewController *)documentPicker
+{
     documentPicker.delegate = self;
     documentPicker.modalPresentationStyle = UIModalPresentationFullScreen;
     [self.viewController presentViewController:documentPicker animated:YES completion:nil];
-    
 }
 
--(void)documentMenuWasCancelled:(UIDocumentMenuViewController *)documentMenu {
-    
+-(void)documentMenuWasCancelled:(UIDocumentMenuViewController *)documentMenu
+{
+
     self.pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"canceled"];
     [self.pluginResult setKeepCallbackAsBool:NO];
     [self.commandDelegate sendPluginResult:self.pluginResult callbackId:self.command.callbackId];
-    
 }
 
 #pragma mark - UIDocumentPickerDelegate
@@ -84,24 +83,30 @@
     [self.commandDelegate sendPluginResult:self.pluginResult callbackId:self.command.callbackId];
     
 }
-- (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller {
     
+- (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller
+{
     self.pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"canceled"];
     [self.pluginResult setKeepCallbackAsBool:NO];
     [self.commandDelegate sendPluginResult:self.pluginResult callbackId:self.command.callbackId];
-    
 }
 
-- (void)displayDocumentPicker:(NSArray *)UTIs withSenderRect:(CGRect)senderFrame{
-    
-    UIDocumentMenuViewController *importMenu = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:UTIs inMode:UIDocumentPickerModeImport];
-    importMenu.delegate = self;
-    importMenu.popoverPresentationController.sourceView = self.viewController.view;
-    if (!CGRectEqualToRect(senderFrame, CGRectZero)) {
-        importMenu.popoverPresentationController.sourceRect = senderFrame;
+- (void)displayDocumentPicker:(NSArray *)UTIs withSenderRect:(CGRect)senderFrame
+{
+    UIViewController * vc = nil;
+    if (!IsAtLeastiOSVersion(@"11.0")) {
+        vc = [[UIDocumentMenuViewController alloc] initWithDocumentTypes:UTIs inMode:UIDocumentPickerModeImport];
+        ((UIDocumentMenuViewController *)vc).delegate = self;
+        vc.popoverPresentationController.sourceView = self.viewController.view;
+        if (!CGRectEqualToRect(senderFrame, CGRectZero)) {
+            vc.popoverPresentationController.sourceRect = senderFrame;
+        }
+    } else {
+        vc = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:UTIs inMode:UIDocumentPickerModeImport];
+        ((UIDocumentPickerViewController *)vc).delegate = self;
+        vc.modalPresentationStyle = UIModalPresentationFullScreen;
     }
-    [self.viewController presentViewController:importMenu animated:YES completion:nil];
-    
+    [self.viewController presentViewController:vc animated:YES completion:nil];
 }
 
 @end

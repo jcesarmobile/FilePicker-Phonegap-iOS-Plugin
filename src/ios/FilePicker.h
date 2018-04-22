@@ -16,5 +16,4 @@
 - (void)isAvailable:(CDVInvokedUrlCommand*)command;
 - (void)pickFile:(CDVInvokedUrlCommand*)command;
 
-
 @end
