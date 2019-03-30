@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-filepicker",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "\n    This plugin makes possible to pick files from iCloud or other document providers\n  ",
   "cordova": {
     "id": "cordova-plugin-filepicker",
@@ -22,6 +22,10 @@
       "version": ">=3.0.0"
     }
   ],
+  "dependencies": {
+    "q": "^1.5.1",
+    "xcode": "^2.0.0"
+  },
   "author": "jcesarmobile",
   "license": "MIT",
   "bugs": {
